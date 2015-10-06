@@ -66,8 +66,6 @@ class CompletePurchaseResponse extends AbstractResponse
 
     /**
      * Notify Portmanat you received the payment details and wish to confirm the payment.
-     *
-     * @return void
      */
     public function confirm()
     {
@@ -78,8 +76,6 @@ class CompletePurchaseResponse extends AbstractResponse
      * Notify Portmanat you received the payment details but there was an error and the payment
      * cannot be completed. Error should be called rarely, and only when something unforeseen
      * has happened on your server or database.
-     *
-     * @return void
      */
     public function error()
     {
@@ -90,7 +86,6 @@ class CompletePurchaseResponse extends AbstractResponse
      * Exit to ensure no other HTML, headers, comments, or text are included.
      *
      * @param string $result
-     * @return void
      *
      * @codeCoverageIgnore
      */

@@ -1,6 +1,7 @@
 <?php
 
 namespace Omnipay\Portmanat\Message;
+
 use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
@@ -44,6 +45,7 @@ class PurchaseRequest extends AbstractRequest
      * Get the data for this request.
      *
      * @return array request data
+     *
      * @throws InvalidRequestException
      */
     public function getData()
