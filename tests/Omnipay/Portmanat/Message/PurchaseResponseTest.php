@@ -19,7 +19,7 @@ class PurchaseResponseTest extends TestCase
             'method' => 'code',
             'transactionId' => '1234567890',
             'amount' => '14.65',
-            'currency' => 'EUR'
+            'currency' => 'AZN'
         ));
     }
 
@@ -36,7 +36,7 @@ class PurchaseResponseTest extends TestCase
         $this->assertSame(array(
             's_id' => '67890',
             'o_id' => '1234567890',
-            'method' => 'CODE',
+            'method' => 'code',
             'amount' => '14.65'
         ), $response->getRedirectData());
     }

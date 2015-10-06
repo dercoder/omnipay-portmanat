@@ -1,6 +1,7 @@
 <?php
 
 namespace Omnipay\Portmanat\Message;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * Portmanat Purchase Request.
@@ -21,7 +22,7 @@ class PurchaseRequest extends AbstractRequest
      */
     public function getMethod()
     {
-        return strtoupper($this->getParameter('method'));
+        return $this->getParameter('method');
     }
 
     /**
@@ -36,13 +37,14 @@ class PurchaseRequest extends AbstractRequest
      */
     public function setMethod($value)
     {
-        return $this->setParameter('method', $value);
+        return $this->setParameter('method', strtolower($value));
     }
 
     /**
      * Get the data for this request.
      *
      * @return array request data
+     * @throws InvalidRequestException
      */
     public function getData()
     {
@@ -52,6 +54,10 @@ class PurchaseRequest extends AbstractRequest
             'transactionId',
             'amount'
         );
+
+        if (($currency = $this->getCurrency()) && $currency !== 'AZN') {
+            throw new InvalidRequestException('Invalid currency. Only AZN is supported');
+        }
 
         return array(
             's_id' => $this->getServiceId(),

@@ -19,8 +19,19 @@ class PurchaseRequestTest extends TestCase
             'method' => 'code',
             'transactionId' => '1234567890',
             'amount' => '14.65',
-            'currency' => 'EUR'
+            'currency' => 'AZN'
         ));
+    }
+
+    public function testException()
+    {
+        $this->request->setCurrency('EUR');
+
+        try {
+            $this->request->getData();
+        } catch (\Exception $e) {
+            $this->assertEquals('Omnipay\Common\Exception\InvalidRequestException', get_class($e));
+        }
     }
 
     public function testGetData()
@@ -29,7 +40,7 @@ class PurchaseRequestTest extends TestCase
 
         $this->assertSame('67890', $data['s_id']);
         $this->assertSame('1234567890', $data['o_id']);
-        $this->assertSame('CODE', $data['method']);
+        $this->assertSame('code', $data['method']);
         $this->assertSame('14.65', $data['amount']);
     }
 

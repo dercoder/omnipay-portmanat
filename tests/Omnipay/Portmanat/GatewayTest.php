@@ -28,13 +28,13 @@ class GatewayTest extends GatewayTestCase
     public function testPurchase()
     {
         $request = $this->gateway->purchase(array(
-            'method' => 'account',
+            'method' => 'ACCOUNT',
             'transactionId' => '1234567890',
             'amount' => '14.65',
             'currency' => 'EUR'
         ));
 
-        $this->assertSame('ACCOUNT', $request->getMethod());
+        $this->assertSame('account', $request->getMethod());
         $this->assertSame('1234567890', $request->getTransactionId());
         $this->assertSame('14.65', $request->getAmount());
         $this->assertSame('EUR', $request->getCurrency());

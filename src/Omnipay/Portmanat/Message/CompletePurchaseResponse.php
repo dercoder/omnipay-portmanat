@@ -3,6 +3,8 @@
 namespace Omnipay\Portmanat\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
+use Omnipay\Common\Message\RequestInterface;
+use Omnipay\Common\Exception\InvalidResponseException;
 
 /**
  * Portmanat Complete Purchase Response.
@@ -13,20 +15,23 @@ use Omnipay\Common\Message\AbstractResponse;
  */
 class CompletePurchaseResponse extends AbstractResponse
 {
-    public function isSuccessful()
+    public function __construct(RequestInterface $request, $data)
     {
-        return $this->getHash() === $this->calculateHash() && $this->request->getTestMode() === $this->getTest();
+        $this->request = $request;
+        $this->data = $data;
+
+        if ($this->getHash() !== $this->calculateHash()) {
+            throw new InvalidResponseException('Invalid hash');
+        }
+
+        if ($this->request->getTestMode() !== $this->getTest()) {
+            throw new InvalidResponseException('Invalid test mode');
+        }
     }
 
-    public function getMessage()
+    public function isSuccessful()
     {
-        if ($this->getHash() !== $this->calculateHash()) {
-            return 'Invalid hash checksum';
-        } elseif ($this->request->getTestMode() !== $this->getTest()) {
-            return 'Invalid test mode';
-        } else {
-            return;
-        }
+        return true;
     }
 
     public function getTransactionId()
@@ -59,6 +64,48 @@ class CompletePurchaseResponse extends AbstractResponse
         return $this->data['hash'];
     }
 
+    /**
+     * Notify Portmanat you received the payment details and wish to confirm the payment.
+     *
+     * @return void
+     */
+    public function confirm()
+    {
+        $this->exitWith('1');
+    }
+
+    /**
+     * Notify Portmanat you received the payment details but there was an error and the payment
+     * cannot be completed. Error should be called rarely, and only when something unforeseen
+     * has happened on your server or database.
+     *
+     * @return void
+     */
+    public function error()
+    {
+        $this->exitWith('0');
+    }
+
+    /**
+     * Exit to ensure no other HTML, headers, comments, or text are included.
+     *
+     * @param string $result
+     * @return void
+     *
+     * @codeCoverageIgnore
+     */
+    public function exitWith($result)
+    {
+        header('Content-Type: text/plain');
+        echo $result;
+        exit;
+    }
+
+    /**
+     * Calculate hash to verify transaction details.
+     *
+     * @return string
+     */
     private function calculateHash()
     {
         return strtoupper(md5(
