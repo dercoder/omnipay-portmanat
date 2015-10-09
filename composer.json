@@ -12,8 +12,16 @@
     ],
     "homepage": "https://github.com/dercoder/omnipay-portmanat",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Fedra",
+            "email": "alexander.fedra@gmail.com"
+        }
+    ],
     "autoload": {
-        "psr-4": { "Omnipay\\Portmanat\\" : "src/" }
+        "psr-4": {
+            "Omnipay\\Portmanat\\": "src/"
+        }
     },
     "require": {
         "omnipay/common": "~2.3"
