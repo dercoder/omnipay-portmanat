@@ -13,7 +13,7 @@
     "homepage": "https://github.com/dercoder/omnipay-portmanat",
     "license": "MIT",
     "autoload": {
-        "psr-0": { "Omnipay\\Portmanat\\" : "src/" }
+        "psr-4": { "Omnipay\\Portmanat\\" : "src/" }
     },
     "require": {
         "omnipay/common": "~2.3"
