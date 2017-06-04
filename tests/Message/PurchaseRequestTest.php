@@ -1,10 +1,14 @@
 <?php
+
 namespace Omnipay\Portmanat\Message;
 
 use Omnipay\Tests\TestCase;
 
 class PurchaseRequestTest extends TestCase
 {
+    /**
+     * @var PurchaseRequest
+     */
     private $request;
 
     public function setUp()
@@ -13,25 +17,21 @@ class PurchaseRequestTest extends TestCase
 
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(array(
-            'partnerId' => '12345',
-            'serviceId' => '67890',
-            'securityKey' => 'oJ2rHLBVSbD5iGfT',
-            'method' => 'code',
+            'partnerId'     => '12345',
+            'serviceId'     => '67890',
+            'securityKey'   => 'oJ2rHLBVSbD5iGfT',
+            'method'        => 'code',
             'transactionId' => '1234567890',
-            'amount' => '14.65',
-            'currency' => 'AZN'
+            'amount'        => '14.65',
+            'currency'      => 'AZN'
         ));
     }
 
     public function testException()
     {
         $this->request->setCurrency('EUR');
-
-        try {
-            $this->request->getData();
-        } catch (\Exception $e) {
-            $this->assertEquals('Omnipay\Common\Exception\InvalidRequestException', get_class($e));
-        }
+        $this->setExpectedException('Omnipay\Common\Exception\InvalidRequestException', 'Invalid currency. Only AZN is supported');
+        $this->request->getData();
     }
 
     public function testGetData()
@@ -48,6 +48,6 @@ class PurchaseRequestTest extends TestCase
     {
         $data = $this->request->getData();
         $response = $this->request->sendData($data);
-        $this->assertSame('Omnipay\Portmanat\Message\PurchaseResponse', get_class($response));
+        $this->assertInstanceOf('Omnipay\Portmanat\Message\PurchaseResponse', $response);
     }
 }

@@ -1,10 +1,14 @@
 <?php
+
 namespace Omnipay\Portmanat\Message;
 
 use Omnipay\Tests\TestCase;
 
 class CompletePurchaseResponseTest extends TestCase
 {
+    /**
+     * @var CompletePurchaseRequest
+     */
     private $request;
 
     public function setUp()
@@ -13,51 +17,48 @@ class CompletePurchaseResponseTest extends TestCase
 
         $this->request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(array(
-            'partnerId' => '12345',
-            'serviceId' => '67890',
+            'partnerId'   => '12345',
+            'serviceId'   => '67890',
             'securityKey' => 'oJ2rHLBVSbD5iGfT',
-            'testMode' => true
+            'testMode'    => true
         ));
     }
 
-    public function testException()
+    public function testModeException()
     {
-        try {
-            new CompletePurchaseResponse($this->request, array(
-                'o_id' => '1234567890',
-                'transaction' => 'TX9997888',
-                'method' => 'code',
-                'amount' => '14.65',
-                'test' => '0',
-                'hash' => 'CE76828063B3A2E3793A23C21B603E93'
-            ));
-        } catch (\Exception $e) {
-            $this->assertEquals('Omnipay\Common\Exception\InvalidResponseException', get_class($e));
-        }
+        $this->setExpectedException('Omnipay\Common\Exception\InvalidResponseException', 'Invalid test mode');
+        new CompletePurchaseResponse($this->request, array(
+            'o_id'        => '1234567890',
+            'transaction' => 'TX9997888',
+            'method'      => 'code',
+            'amount'      => '14.65',
+            'test'        => '0',
+            'hash'        => 'CE76828063B3A2E3793A23C21B603E93'
+        ));
+    }
 
-        try {
-            new CompletePurchaseResponse($this->request, array(
-                'o_id' => '1234567890',
-                'transaction' => 'TX9997888',
-                'method' => 'code',
-                'amount' => '14.65',
-                'test' => '1',
-                'hash' => 'CE76828063B3A2E3793A23C21B603E94'
-            ));
-        } catch (\Exception $e) {
-            $this->assertEquals('Omnipay\Common\Exception\InvalidResponseException', get_class($e));
-        }
+    public function testHashException()
+    {
+        $this->setExpectedException('Omnipay\Common\Exception\InvalidResponseException', 'Invalid hash');
+        new CompletePurchaseResponse($this->request, array(
+            'o_id'        => '1234567890',
+            'transaction' => 'TX9997888',
+            'method'      => 'code',
+            'amount'      => '14.65',
+            'test'        => '1',
+            'hash'        => 'XXXXXXXX'
+        ));
     }
 
     public function testSuccess()
     {
         $response = new CompletePurchaseResponse($this->request, array(
-            'o_id' => '1234567890',
+            'o_id'        => '1234567890',
             'transaction' => 'TX9997888',
-            'method' => 'code',
-            'amount' => '14.65',
-            'test' => '1',
-            'hash' => 'CE76828063B3A2E3793A23C21B603E93'
+            'method'      => 'code',
+            'amount'      => '14.65',
+            'test'        => '1',
+            'hash'        => 'CE76828063B3A2E3793A23C21B603E93'
         ));
 
         $this->assertTrue($response->isSuccessful());
@@ -75,12 +76,12 @@ class CompletePurchaseResponseTest extends TestCase
     {
         $response = $this->getMockBuilder('\Omnipay\Portmanat\Message\CompletePurchaseResponse')
             ->setConstructorArgs(array($this->request, array(
-                'o_id' => '1234567890',
+                'o_id'        => '1234567890',
                 'transaction' => 'TX9997888',
-                'method' => 'code',
-                'amount' => '14.65',
-                'test' => '1',
-                'hash' => 'CE76828063B3A2E3793A23C21B603E93'
+                'method'      => 'code',
+                'amount'      => '14.65',
+                'test'        => '1',
+                'hash'        => 'CE76828063B3A2E3793A23C21B603E93'
             )))
             ->setMethods(array('exitWith'))
             ->getMock();
@@ -95,12 +96,12 @@ class CompletePurchaseResponseTest extends TestCase
     {
         $response = $this->getMockBuilder('\Omnipay\Portmanat\Message\CompletePurchaseResponse')
             ->setConstructorArgs(array($this->request, array(
-                'o_id' => '1234567890',
+                'o_id'        => '1234567890',
                 'transaction' => 'TX9997888',
-                'method' => 'code',
-                'amount' => '14.65',
-                'test' => '1',
-                'hash' => 'CE76828063B3A2E3793A23C21B603E93'
+                'method'      => 'code',
+                'amount'      => '14.65',
+                'test'        => '1',
+                'hash'        => 'CE76828063B3A2E3793A23C21B603E93'
             )))
             ->setMethods(array('exitWith'))
             ->getMock();

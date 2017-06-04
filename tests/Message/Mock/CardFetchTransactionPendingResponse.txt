@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Fri, 19 May 2017 14:00:41 GMT
+Server: Apache/2.2.15 (CentOS)
+X-Powered-By: PHP/5.6.21
+Cache-Control: no-cache
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+{"status":"OK","code":1,"description":"Request is pending","body":{"amount":"5.23","client_rrn":"591eefd77c028","psp_rrn":"1495199725-5xfasd-6CVI3o-l]Bupz","bank_rrn":"O\/yn+szmjVxYVMmst0T7Z02zxM0=","created_at":{"date":"2017-05-19 17:15:26.000000","timezone_type":3,"timezone":"Asia\/Baku"},"service":{"id":123456,"title":"Test","description":"For testing only","test":1,"status":0}}}

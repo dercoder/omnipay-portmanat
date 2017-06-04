@@ -2,9 +2,8 @@
 
 **Portmanat driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/dercoder/omnipay-portmanat.png?branch=master)](https://travis-ci.org/dercoder/omnipay-portmanat)
+[![Build Status](https://travis-ci.org/dercoder/omnipay-portmanat.svg?branch=master)](https://travis-ci.org/dercoder/omnipay-portmanat)
 [![Coverage Status](https://coveralls.io/repos/dercoder/omnipay-portmanat/badge.svg?branch=master&service=github)](https://coveralls.io/github/dercoder/omnipay-portmanat?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/560a99a45a262f001e000661/badge.png)](https://www.versioneye.com/user/projects/560a99a45a262f001e000661)
 
 [![Latest Stable Version](https://poser.pugx.org/dercoder/omnipay-portmanat/v/stable.png)](https://packagist.org/packages/dercoder/omnipay-portmanat)
 [![Total Downloads](https://poser.pugx.org/dercoder/omnipay-portmanat/downloads.png)](https://packagist.org/packages/dercoder/omnipay-portmanat)
@@ -12,7 +11,10 @@
 [![License](https://poser.pugx.org/dercoder/omnipay-portmanat/license.png)](https://packagist.org/packages/dercoder/omnipay-portmanat)
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements [Portmanat](https://www.portmanat.az) support for Omnipay.
+processing library for PHP 5.3+. 
+This package implements [Portmanat](https://www.portmanat.az) 
+and [Portmanat Card](https://www.mps.az) 
+support for Omnipay.
 
 ## Installation
 
@@ -37,6 +39,7 @@ And run composer to update your dependencies:
 The following gateways are provided by this package:
 
 * Portmanat
+* Portmanat Card
 
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
 repository.
